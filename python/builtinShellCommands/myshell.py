@@ -2,8 +2,8 @@
 from __future__ import unicode_literals
 from prompt_toolkit import PromptSession
 from shlex import split
-from lib.utils import cprint, Colors
-import lib.cmds as cmd
+from mylib.utils import cprint, Colors
+import mylib.cmds as cmd
 import argparse
 import readline
 import subprocess
