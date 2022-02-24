@@ -10,3 +10,6 @@ python3 -m venv venv
 pip3 install prompt_toolkit
 python3 myshell.py
 ```
+
+# EXTRA
+noInitCmdClass.py and InitCmdClass.py are examples of how you'd get a list of available commands potentially from within a class/subclass structure. Its really rough and shit. But its POC of how to do it for me.

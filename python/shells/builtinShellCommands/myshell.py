@@ -13,7 +13,7 @@ import sys
 class Shell:
     def __init__(self):
         self.prompt =  '\x01' + Colors.blue + '\x02' + ' myshell ' + '\x01' + Colors.end + '\x02' + '> '
-        self.commands = [] 
+        self.commands = {}
 
 
     def start_shell(self):
