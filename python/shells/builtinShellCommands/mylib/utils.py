@@ -17,4 +17,4 @@ def cprint(msg):
     elif msg.startswith('[-]'):
         print(Colors.red + msg + Colors.end)
     else:
-        print("Unknown error")
+        print("mylib: Unknown error")

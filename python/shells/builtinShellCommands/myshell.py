@@ -41,6 +41,9 @@ class Shell:
             sys.exit()
         elif "~ls" in builtin[0]:
             cmd.ls(builtin)    
+        else:
+            msg = f'[-] {builtin[0]} is not a builtin command!'
+            cprint(msg)
         return 
 
 

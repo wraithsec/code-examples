@@ -32,6 +32,16 @@ class ls():
                             ) 
                     else:     
                         for child in tpath.iterdir(): print(child) 
+    
+                    if args.r:
+                        for child in tpath.rglob('*'):
+                            print(
+                            self.get_filetype(child),
+                            self.convert_chown(child.owner(),child.group()),
+                            self.convert_epoch(child.stat().st_mtime),
+                            str(child.stat().st_size), 
+                            str(child)
+                            ) 
                 except PermissionError:
                     cprint(f'[-]~ls cannot access file or directory {tpath}: Permission denied')
                 except FileNotFoundError:

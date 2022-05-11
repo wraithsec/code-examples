@@ -20,7 +20,8 @@ except:
 
 
 while True:
-    cmd = input('\x01' + Colors.newgreen + '\x02' + 'PROMPT > ' + '\x01' + Colors.ENDC + '\x02')
+    #cmd = input('\x01' + Colors.newgreen + '\x02' + 'PROMPT > ' + '\x01' + Colors.ENDC + '\x02')
+    cmd = input(Colors.newgreen + 'PROMPT > ' + Colors.ENDC)
     try:
         if cmd.lower() == '~quit':
             readline.write_history_file('.shell_hist') 
@@ -28,6 +29,8 @@ while True:
             print(Colors.LIME + '[+] Okay! Shutting down!' + Colors.ENDC)
             print(Colors.newgreen + '[+] Okay! Shutting down!' + Colors.ENDC)
             sys.exit()
+        elif cmd.lower() == '~help':
+            print('Commands: \n~quit\n~help')
     except KeyboardInterrupt:
             readline.write_history_file('.shell_hist')
             sys.exit()

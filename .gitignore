@@ -1,5 +1,7 @@
-# configs 
+# ThisProject
 *.yaml
+.*hist
+*.swp
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
