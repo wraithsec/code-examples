@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+'''
+Use to setup a venv totally within python. 
+'''
 from pathlib import Path 
 import subprocess
 import sys
