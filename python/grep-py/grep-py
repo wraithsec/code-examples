@@ -6,34 +6,47 @@ import glob
 import sys
 import re
 
+# Add a color highlight?? 
+pre = '\033['
+blu = pre + '38;5;033m'
+grn =  pre + '38;5;82m'
+rst = pre + '0m'
 
-def parse_paths(path):
-    return
-
-def iter_files():
-    return
-
-def if_file():
-    return
-
-def grep_file():
-    result, filename
-    return result,filename
+def file_path_list(recurse: bool, pathlist: list) -> list:
+    moar_files = [] 
+    for idx,path in enumerate(pathlist):
+        if path.is_dir():
+            if recurse:
+                moar_files = [file for file in path.rglob('*')] 
+            else:
+                moar_files = [file for file in path.glob('*')] 
+            pathlist.pop(idx)
+    pathlist.extend(moar_files)
+    return pathlist
 
 
 def main(args: dict) -> None:
+    rgx = args.REGEX[0]
     if args.i: 
-        rgx = r'(?i)' + args.REGEX[0]
+        rgx = r'(?i)' + rgx
     rgx = re.compile(rgx)
 
-        
+    files = file_path_list(args.r, args.PATHS)
+    for file in files:
+        with file.open() as f:
+            line_count = 0
+            for line in f:
+                line_count += 1 
+                if (suc := rgx.search(line)):
+                    print(f'{file}{blu}:{line_count}:{rst} { line[:suc.start()] }{ grn }{ line[suc.start():suc.end()] }{ rst }{ line[suc.end():] }', end='')
+                 
       
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="A crap implementation of grep.")
     parser.add_argument('REGEX', nargs=1, type=str, help="A regular expression for a file.") 
-    parser.add_argument('FILES', nargs="+", type=Path, help="Files to run regex on.")
+    parser.add_argument('PATHS', nargs="+", type=Path, help="Files to run regex on.")
     parser.add_argument('--recurse', '-r', dest='r', action='store_true', help="Recurse directories.")
     parser.add_argument('--case-insensitive', '-i', dest='i', action='store_true', help="Regex case insensitivity.")
     args = parser.parse_args()
