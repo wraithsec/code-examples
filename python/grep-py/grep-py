@@ -1,0 +1,40 @@
+#!/usr/bin/env python3
+from pathlib import Path 
+import argparse
+import os.path
+import glob
+import sys
+import re
+
+
+def parse_paths(path):
+    return
+
+def iter_files():
+    return
+
+def if_file():
+    return
+
+def grep_file():
+    result, filename
+    return result,filename
+
+
+def main(args: dict) -> None:
+    if args.i: 
+        rgx = r'(?i)' + args.REGEX[0]
+    rgx = re.compile(rgx)
+
+        
+      
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="A crap implementation of grep.")
+    parser.add_argument('REGEX', nargs=1, type=str, help="A regular expression for a file.") 
+    parser.add_argument('FILES', nargs="+", type=Path, help="Files to run regex on.")
+    parser.add_argument('--recurse', '-r', dest='r', action='store_true', help="Recurse directories.")
+    parser.add_argument('--case-insensitive', '-i', dest='i', action='store_true', help="Regex case insensitivity.")
+    args = parser.parse_args()
+    main(args)
