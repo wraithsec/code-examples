@@ -5,4 +5,4 @@ def myfunc(output: bytes) -> str:
     output = output.decode() 
     return output
     
-myfunc(b'bytesobject')
+myfunc(b'bytesnstuff')
