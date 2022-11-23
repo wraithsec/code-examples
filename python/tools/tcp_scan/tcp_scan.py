@@ -2,8 +2,6 @@
 import argparse
 import threading
 import socket
-import sys 
-import os 
 import re
 
 # TODO:     
@@ -19,7 +17,7 @@ class Color:
     red = pre + '[1;91m'
     
 
-def cprint(msg):
+def cprint(msg: str): -> None:
     if msg.startswith('[+]'):
         print(Color.green + msg[:3] + Color.clear + msg[3:])
     elif msg.startswith('[-]'):
@@ -28,7 +26,7 @@ def cprint(msg):
         print(msg)
 
 
-def _parse_ports(ports: str) -> list[int]:
+def parse_ports(ports: str) -> list[int]:
     parsed_ports = []
     ports = re.split(r',', ports)
     for p in ports:
@@ -43,7 +41,8 @@ def _parse_ports(ports: str) -> list[int]:
     return parsed_ports 
 
 
-def main(ips, ports, timeout):
+def main(ips: list[str], ports: list[int], timeout: int) -> None:
+    cprint(f'[ ] Trying {ips} with {ports}.')
     for ip in ips:
         for port in ports:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -61,9 +60,9 @@ def main(ips, ports, timeout):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Port scanner') 
-    parser.add_argument('-t', '--timeout', metavar='T', type=int, help="Socket timeout value.", default=3)
-    parser.add_argument('-p', '--ports', metavar='PORTS', type=_parse_ports)
+    parser = argparse.ArgumentParser(description='Port scanner', formatter_class=argparse.ArgumentDefaultsHelpFormatter) 
+    parser.add_argument('-p', '--ports', metavar='PORTS', type=parse_ports)
+    parser.add_argument('-t', '--timeout', metavar='TIMEOUT', type=int, help="Socket timeout value.", default=3)
     parser.add_argument('ips', metavar='IPS', nargs='+', type=str)
     args = parser.parse_args()
     main(args.ips, args.ports, args.timeout)
