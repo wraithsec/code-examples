@@ -17,7 +17,7 @@ class Color:
     red = pre + '[1;91m'
     
 
-def cprint(msg: str): -> None:
+def cprint(msg: str) -> None:
     if msg.startswith('[+]'):
         print(Color.green + msg[:3] + Color.clear + msg[3:])
     elif msg.startswith('[-]'):
