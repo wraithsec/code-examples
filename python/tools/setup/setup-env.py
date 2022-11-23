@@ -6,6 +6,19 @@ from pathlib import Path
 import subprocess
 import sys
 
+
+dank_ascii='
+  ██████ ▓█████▄▄▄█████▓ █    ██  ██▓███  
+▒██    ▒ ▓█   ▀▓  ██▒ ▓▒ ██  ▓██▒▓██░  ██▒
+░ ▓██▄   ▒███  ▒ ▓██░ ▒░▓██  ▒██░▓██░ ██▓▒
+  ▒   ██▒▒▓█  ▄░ ▓██▓ ░ ▓▓█  ░██░▒██▄█▓▒ ▒
+▒██████▒▒░▒████▒ ▒██▒ ░ ▒▒█████▓ ▒██▒ ░  ░
+▒ ▒▓▒ ▒ ░░░ ▒░ ░ ▒ ░░   ░▒▓▒ ▒ ▒ ▒▓▒░ ░  ░
+░ ░▒  ░ ░ ░ ░  ░   ░    ░░▒░ ░ ░ ░▒ ░     
+░  ░  ░     ░    ░       ░░░ ░ ░ ░░       
+      ░     ░  ░           ░              
+'
+
 def main(dank_ascii):
     venv_name = 'venv-test'
     venv_cmd = f'python3 -m venv {venv_name}'.split()

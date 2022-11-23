@@ -11,16 +11,17 @@ def main(algorithims, paths):
     allowed_algos = [ 'md5', 'sha1', 'sha256', 'sha512' ]
 
     for path in paths:
+        print()
         if not path.is_file(): 
             print(f'[-] {path} not a file!')
         else: 
             for a in algorithims: 
                 if a not in allowed_algos:
-                    cprint(f'[-] {_} not a known algorithim.')
+                    print(f'[-] {a} not a known algorithim.')
                 else:
                     alg = hashlib.new(a)
                     alg.update(path.read_bytes())
-                    print(f'{alg.hexdigest()}\t{path}')
+                    print(f'[+] {alg.hexdigest()}\t{path}')
     return
 
 

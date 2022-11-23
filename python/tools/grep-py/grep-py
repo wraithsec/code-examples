@@ -7,10 +7,11 @@ import sys
 import re
 
 # Add a color highlight?? 
-pre = '\033['
-blu = pre + '38;5;033m'
-grn =  pre + '38;5;82m'
-rst = pre + '0m'
+class Color:
+    pre = '\033['
+    blu = pre + '38;5;033m'
+    grn =  pre + '38;5;82m'
+    rst = pre + '0m'
 
 def file_path_list(recurse: bool, pathlist: list) -> list:
     moar_files = [] 
@@ -26,7 +27,7 @@ def file_path_list(recurse: bool, pathlist: list) -> list:
 
 
 def main(args: dict) -> None:
-    rgx = args.REGEX[0]
+    rgx = args.PATTERN[0]
     if args.i: 
         rgx = r'(?i)' + rgx
     rgx = re.compile(rgx)
@@ -38,7 +39,10 @@ def main(args: dict) -> None:
             for line in f:
                 line_count += 1 
                 if (suc := rgx.search(line)):
-                    print(f'{file}{blu}:{line_count}:{rst} { line[:suc.start()] }{ grn }{ line[suc.start():suc.end()] }{ rst }{ line[suc.end():] }', end='')
+                    if args.l:
+                        print(f'{file}{Color.blu}:{line_count}{Color.rst}')
+                        continue 
+                    print(f'{file}{Color.blu}[{line_count}]{Color.rst}: { line[:suc.start()] }{ Color.grn }{ line[suc.start():suc.end()] }{ Color.rst }{ line[suc.end():] }', end='')
                  
       
 
@@ -47,7 +51,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="A crap implementation of grep.")
     parser.add_argument('PATTERN', nargs=1, type=str, help="A extended regular expression for a file. Like grep -E.") 
     parser.add_argument('PATHS', nargs="+", type=Path, help="Files to run regex on.")
-    parser.add_argument('--recurse', '-r', dest='r', action='store_true', help="Recurse directories.")
-    parser.add_argument('--case-insensitive', '-i', dest='i', action='store_true', help="Regex case insensitivity.")
+    parser.add_argument('-r', '--recurse', dest='r', action='store_true', help="Recurse directories.")
+    parser.add_argument('-i', '--nocase', dest='i', action='store_true', help="Regex case insensitivity.")
+    parser.add_argument('-l', '--lines-only', dest='l', action='store_true', help="Only return line numbers of matches.")
     args = parser.parse_args()
     main(args)
