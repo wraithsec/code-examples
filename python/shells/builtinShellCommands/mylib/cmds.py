@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import argparse 
 import time
-from .utils import cprint
+from utils import cprint
 from pathlib import Path
 
 class ls():
