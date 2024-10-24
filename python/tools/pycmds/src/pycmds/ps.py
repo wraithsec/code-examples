@@ -2,7 +2,7 @@
 import psutil
 import datetime
 
-def main(args: list) -> None:
+def main(args: list = None) -> None:
     for proc in psutil.process_iter():
         if proc.pid in (7607, 7635, 2609):
             print("------------------------------------")

@@ -26,7 +26,15 @@ def file_path_list(recurse: bool, pathlist: list) -> list:
     return pathlist
 
 
-def main(args: dict) -> None:
+def main() -> None:
+    parser = argparse.ArgumentParser(description="A crap implementation of grep.")
+    parser.add_argument('PATTERN', nargs=1, type=str, help="A extended regular expression for a file. Like grep -E.") 
+    parser.add_argument('PATHS', nargs="+", type=Path, help="Files to run regex on.")
+    parser.add_argument('-r', '--recurse', dest='r', action='store_true', help="Recurse directories.")
+    parser.add_argument('-i', '--nocase', dest='i', action='store_true', help="Regex case insensitivity.")
+    parser.add_argument('-l', '--lines-only', dest='l', action='store_true', help="Only return line numbers of matches.")
+    args = parser.parse_args()
+
     rgx = args.PATTERN[0]
     if args.i: 
         rgx = r'(?i)' + rgx
@@ -42,17 +50,8 @@ def main(args: dict) -> None:
                     if args.l:
                         print(f'{file}{Color.blu}:{line_count}{Color.rst}')
                         continue 
-                    print(f'{file}{Color.blu}[{line_count}]{Color.rst}: { line[:suc.start()] }{ Color.grn }{ line[suc.start():suc.end()] }{ Color.rst }{ line[suc.end():] }', end='')
-                 
-      
+                    print(f'{file}{Color.blu}[{line_count}]{Color.rst}: {line[:suc.start()]}{Color.grn}{line[suc.start():suc.end()]}{Color.rst}{line[suc.end():]}', end='')
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="A crap implementation of grep.")
-    parser.add_argument('PATTERN', nargs=1, type=str, help="A extended regular expression for a file. Like grep -E.") 
-    parser.add_argument('PATHS', nargs="+", type=Path, help="Files to run regex on.")
-    parser.add_argument('-r', '--recurse', dest='r', action='store_true', help="Recurse directories.")
-    parser.add_argument('-i', '--nocase', dest='i', action='store_true', help="Regex case insensitivity.")
-    parser.add_argument('-l', '--lines-only', dest='l', action='store_true', help="Only return line numbers of matches.")
-    args = parser.parse_args()
-    main(args)
+    main()

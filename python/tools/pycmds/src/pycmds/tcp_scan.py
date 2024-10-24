@@ -41,7 +41,16 @@ def parse_ports(ports: str) -> list[int]:
     return parsed_ports 
 
 
-def main(ips: list[str], ports: list[int], timeout: int) -> None:
+def main(ips: list[str] = None, ports: list[int] = None, timeout: int = None) -> None:
+    parser = argparse.ArgumentParser(description='Port scanner', formatter_class=argparse.ArgumentDefaultsHelpFormatter) 
+    parser.add_argument('-p', '--ports', metavar='PORTS', type=parse_ports)
+    parser.add_argument('-t', '--timeout', metavar='TIMEOUT', type=int, help="Socket timeout value.", default=3)
+    parser.add_argument('ips', metavar='IPS', nargs='+', type=str)
+    args = parser.parse_args()
+    ips = args.IPS
+    ports = args.PORTS 
+    timeout = args.TIMETOUT
+
     cprint(f'[ ] Trying {ips} with {ports}.')
     for ip in ips:
         for port in ports:
@@ -54,17 +63,12 @@ def main(ips: list[str], ports: list[int], timeout: int) -> None:
                     cprint(f'[+] {ip}:{port} is open.')
                 else:
                     cprint(f'[-] {ip}:{port} is closed.')
-            except exception as e :
+            except Exception as e :
                 cprint(f'[-] Unhandled socket error:\n {e}')
         return
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Port scanner', formatter_class=argparse.ArgumentDefaultsHelpFormatter) 
-    parser.add_argument('-p', '--ports', metavar='PORTS', type=parse_ports)
-    parser.add_argument('-t', '--timeout', metavar='TIMEOUT', type=int, help="Socket timeout value.", default=3)
-    parser.add_argument('ips', metavar='IPS', nargs='+', type=str)
-    args = parser.parse_args()
-    main(args.ips, args.ports, args.timeout)
+    main()
     
     

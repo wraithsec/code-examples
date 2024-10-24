@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nixtools"
+version = "0.1.0"
+authors = [
+  { name="wraith", email="wraith.infosec@gmail.com" },
+]
+description = "A set of command line tools I made as practice."
+readme = "README.md"
+requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Mac OS",
+]
+
+dependencies = [
+]
+
+
+[project.urls]
+Homepage = "None"
+Issues = "None"
+
+[project.scripts]
+py-tcpscan = "pycmds.tcp_scan:main"
+py-ncat = "pycmds.nc_shell:main"
+py-hash = "pycmds.hash:main"
+py-grep = "pycmds.grep:main"
+py-ls = "pycmds.ls:ls_cmd.run"

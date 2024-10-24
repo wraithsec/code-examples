@@ -36,14 +36,21 @@ def send_cmd(sock: socket, cmd: bytes) -> None:
     print(data.decode())
     return
 
-def main(host: tuple[str, int]) -> None:
+def main(host: tuple[str, int] = None) -> None:
+    parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument('-i', default='127.0.0.1', type=str, help='Ip to connect to.')
+    parser.add_argument('-p', default=8080, type=int, help='Port to connect to.')
+    args = parser.parse_args()
+    host = (args.i, args.p)
+    
+
     readline.parse_and_bind('tab: complete')
     socket.setdefaulttimeout(5.0)
     s = sock(socket.AF_INET, socket.SOCK_STREAM)
     s.connect(host)
 
     while True:
-        cmd = input("LAKI > ")
+        cmd = input("rlwrap-shell > ")
         if cmd == '': 
             continue
         if cmd.startswith('='):
@@ -67,9 +74,4 @@ def main(host: tuple[str, int]) -> None:
             continue
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('-i', default='127.0.0.1', type=str, help='Ip to connect to.')
-    parser.add_argument('-p', default=8080, type=int, help='Port to connect to.')
-    args = parser.parse_args()
-    host = (args.i, args.p)
-    main(host)
+    main()
